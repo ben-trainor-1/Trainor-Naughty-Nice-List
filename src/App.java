@@ -42,18 +42,12 @@ public class App {
             newEntry = updateList(in.nextLine().split(","), naughtyNiceList[0].length);
 
             // Incorrect length entry
-            if (newEntry == null) {
+            if (newEntry.equals(null)) {
                 System.out.println("Please enter a list of " + naughtyNiceList[0].length + " items.");
             }
 
-            // Stop data entry
-            else if (newEntry[0].toUpperCase().equals("STOP")) {
-                System.out.println("Exiting data entry.");
-                enter = false;
-            }
-
             // Enter data
-            else {
+            else if (newEntry.length == naughtyNiceList[0].length) {
                 for (int i = 0; i < naughtyNiceList.length; i++) {
                     // Enter on the first available row
                     if (naughtyNiceList[i][0] == "") {
@@ -66,6 +60,12 @@ public class App {
                         break;
                     }
                 }
+            }
+
+            // Stop data entry
+            else if (newEntry[0].toUpperCase().equals("STOP")) {
+                System.out.println("Exiting data entry.");
+                enter = false;
             }
 
         }
