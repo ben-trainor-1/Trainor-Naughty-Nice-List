@@ -36,6 +36,9 @@ public class App {
         String[] newEntry;
         while (enter) {
 
+            System.out.println("Enter data for a new child separated by commas. (Type \"STOP\" to exit)");
+
+            // Prompt user for new input, store into a String array to be evaluated
             newEntry = updateList(in.nextLine().split(","), naughtyNiceList[0].length);
 
             // Incorrect length entry
@@ -52,16 +55,19 @@ public class App {
             // Enter data
             else {
                 for (int i = 0; i < naughtyNiceList.length; i++) {
-                    // Only enter on the first available row
+                    // Enter on the first available row
                     if (naughtyNiceList[i][0] == "") {
+                        // Store formatted data
                         for (int j = 0; j < naughtyNiceList[i].length; j++) {
                             naughtyNiceList[i][j] = newEntry[j];
                         }
+                        // Stop once data has been entered
+                        // Prevents filling in every available space
                         break;
                     }
                 }
-                enter = true;
             }
+
         }
         
         printList(naughtyNiceList);
