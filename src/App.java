@@ -14,8 +14,78 @@ public class App {
             {"Trinity", "FISHER", "Nice", "49 Arlington Avenue", "winDow"},
             {"maTthiAs", "hayEs", "Nice", "23 Woodside Ave.", "LOTION"},
             {"Sophia", "SToUT", "Naughty", "7640 Andover Dr.", "teddY beAr"},
-            {"keNNedy", "Dunlap", "", "63 Cypress Rd.", "pAnts"}
+            {"keNNedy", "Dunlap", "", "63 Cypress Rd.", "pAnts"},
+            {"", "", "", "", ""},
+            {"", "", "", "", ""},
+            {"", "", "", "", ""},
+            {"", "", "", "", ""},
+            {"", "", "", "", ""},
+            {"", "", "", "", ""},
+            {"", "", "", "", ""},
+            {"", "", "", "", ""},
+            {"", "", "", "", ""},
+            {"", "", "", "", ""}
         };
 
+        printList(naughtyNiceList);
+
     }
+
+    // Naughty/nice list printing method
+    // Color coding for naughty, nice, and undetermined
+    public static String[][] printList(String[][] list) {
+
+        // Loop through rows
+        for (int i = 0; i < list.length; i++) {
+
+            // Check if naughty, nice, or undetermined
+            // Looks at the 3rd element of current row
+            if (list[i][2].equals("NICE")) {
+                // Green for NICE
+                System.out.print(Colors.ANSI_GREEN);
+            }
+            else if (list[i][2].equals("NAUGHTY")) {
+                // Red for NAUGHTY
+                System.out.print(Colors.ANSI_RED);
+            }
+            else {
+                // Yellow for undetermined
+                System.out.print(Colors.ANSI_YELLOW);
+            }
+
+            // Loop through columns
+            for (int j = 0; j < list[i].length; j++) {
+                System.out.print(list[i][j]);
+
+                // Printing comma separated elements
+                if (j < list[i].length - 1) {
+                    System.out.print(", ");
+                }
+                else {
+                    // Close ANSI color
+                    System.out.println(Colors.ANSI_RESET);
+                }
+            }
+
+        }
+
+        return list;
+
+    }
+
+    // Formats list with all uppercase letters
+    public static String[][] formatList(String[][] list) {
+
+        String formatList[][] = list;
+
+        for (int i = 0; i < list.length; i++) {
+            for (int j = 0; j < list[i].length; j++) {
+                formatList[i][j] = list[i][j].toUpperCase();
+            }
+        }
+
+        return formatList;
+
+    }
+    
 }
