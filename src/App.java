@@ -27,7 +27,46 @@ public class App {
             {"", "", "", "", ""}
         };
 
+        naughtyNiceList =  formatList(naughtyNiceList);
         printList(naughtyNiceList);
+
+        // Accept new comma-delimited entries
+        Scanner in = new Scanner(System.in);
+        boolean enter = true;
+        String[] newEntry;
+        while (enter) {
+
+            newEntry = updateList(in.nextLine().split(","), naughtyNiceList[0].length);
+
+            // Incorrect length entry
+            if (newEntry == null) {
+                System.out.println("Please enter a list of " + naughtyNiceList[0].length + " items.");
+            }
+
+            // Stop data entry
+            else if (newEntry[0].toUpperCase().equals("STOP")) {
+                System.out.println("Exiting data entry.");
+                enter = false;
+            }
+
+            // Enter data
+            else {
+                for (int i = 0; i < naughtyNiceList.length; i++) {
+                    // Only enter on the first available row
+                    if (naughtyNiceList[i][0] == "") {
+                        for (int j = 0; j < naughtyNiceList[i].length; j++) {
+                            naughtyNiceList[i][j] = newEntry[j];
+                        }
+                        break;
+                    }
+                }
+                enter = true;
+            }
+        }
+        
+        printList(naughtyNiceList);
+
+        in.close();
 
     }
 
@@ -76,7 +115,7 @@ public class App {
     // Formats list with all uppercase letters
     public static String[][] formatList(String[][] list) {
 
-        String formatList[][] = list;
+        String formatList[][] = new String[list.length][list[0].length];
 
         for (int i = 0; i < list.length; i++) {
             for (int j = 0; j < list[i].length; j++) {
@@ -86,6 +125,31 @@ public class App {
 
         return formatList;
 
+    }
+    
+    // Enter new data into the list
+    public static String[] updateList(String[] entry, int entryLength) {
+
+        String[] formatEntry = new String[entry.length];
+
+        // Proper length entry has been input, return new formatted data row
+        if (entryLength == entry.length) {
+            for (int i = 0; i < entry.length; i++) {
+                formatEntry[i] = entry[i].toUpperCase();
+            }
+            return formatEntry;
+        }
+
+        // Stop data entry, return single element array
+        else if (entry[0].toUpperCase().equals("STOP")) {
+            return entry;
+        }
+
+        // Incorrect length entry
+        else {
+            return null;
+        }
+        
     }
     
 }
