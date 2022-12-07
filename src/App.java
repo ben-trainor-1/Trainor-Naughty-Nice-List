@@ -27,23 +27,28 @@ public class App {
             {"", "", "", "", ""}
         };
 
+        space(1);
+
         naughtyNiceList =  formatList(naughtyNiceList);
-        printList(naughtyNiceList);
+        printList(naughtyNiceList, "ALL");
+
+        space(1);
 
         // Accept new comma-delimited entries
         Scanner in = new Scanner(System.in);
         boolean enter = true;
         String[] newEntry;
+
         while (enter) {
 
-            System.out.println("Enter data for a new child separated by commas. (Type \"STOP\" to exit)");
+            System.out.println("\nEnter data for a new child separated by commas. (Type \"STOP\" to exit)");
 
             // Prompt user for new input, store into a String array to be evaluated
             newEntry = updateList(in.nextLine().split(","), naughtyNiceList[0].length);
 
             // Incorrect length entry
-            if (newEntry.equals(null)) {
-                System.out.println("Please enter a list of " + naughtyNiceList[0].length + " items.");
+            if (newEntry[0].equals("INVALID")) {
+                System.out.println(Colors.ANSI_YELLOW + "Please enter a list of " + naughtyNiceList[0].length + " items." + Colors.ANSI_RESET);
             }
 
             // Enter data
@@ -60,17 +65,24 @@ public class App {
                         break;
                     }
                 }
+                System.out.println(Colors.ANSI_GREEN + "Data stored." + Colors.ANSI_RESET);
             }
 
             // Stop data entry
             else if (newEntry[0].toUpperCase().equals("STOP")) {
-                System.out.println("Exiting data entry.");
+                System.out.println(Colors.ANSI_BLUE + "Exiting data entry." + Colors.ANSI_RESET);
                 enter = false;
             }
 
         }
         
-        printList(naughtyNiceList);
+        space(1);
+        printList(naughtyNiceList, "ALL");
+        space(1);
+        printList(naughtyNiceList, "NAUGHTY");
+        space(1);
+        printList(naughtyNiceList, "NICE");
+        space(1);
 
         in.close();
 
@@ -78,46 +90,117 @@ public class App {
 
     // Naughty/nice list printing method
     // Color coding for naughty, nice, and undetermined
-    public static String[][] printList(String[][] list) {
+    public static String[][] printList(String[][] list, String listGroup) {
 
-        // Loop through rows
-        for (int i = 0; i < list.length; i++) {
+        if (listGroup.equals("ALL")) {
 
-            // Check if naughty, nice, or undetermined
-            // Looks at the 3rd element of current row
-            if (list[i][2].equals("NICE")) {
-                // Green for NICE
-                System.out.print(Colors.ANSI_GREEN);
-            }
-            else if (list[i][2].equals("NAUGHTY")) {
-                // Red for NAUGHTY
-                System.out.print(Colors.ANSI_RED);
-            }
-            else {
-                // Yellow for undetermined
-                System.out.print(Colors.ANSI_YELLOW);
-            }
+            // Loop through rows
+            for (int i = 0; i < list.length; i++) {
 
-            // Loop through columns
-            for (int j = 0; j < list[i].length; j++) {
-                System.out.print(list[i][j]);
-
-                // Printing comma separated elements
-                if (j < list[i].length - 1) {
-                    System.out.print(", ");
+                // Check if naughty, nice, or undetermined
+                // Looks at the 3rd element of current row
+                if (list[i][2].equals("NICE")) {
+                    // Green for NICE
+                    System.out.print(Colors.ANSI_GREEN);
+                }
+                else if (list[i][2].equals("NAUGHTY")) {
+                    // Red for NAUGHTY
+                    System.out.print(Colors.ANSI_RED);
                 }
                 else {
-                    // Close ANSI color
-                    System.out.println(Colors.ANSI_RESET);
+                    // Yellow for undetermined
+                    System.out.print(Colors.ANSI_YELLOW);
                 }
+
+                // Loop through columns
+                for (int j = 0; j < list[i].length; j++) {
+
+                    System.out.print(list[i][j]);
+
+                    // Printing comma separated elements
+                    if (j < list[i].length - 1) {
+                        System.out.print(", ");
+                    }
+                    else {
+                        // Close ANSI color
+                        System.out.println(Colors.ANSI_RESET);
+                    }
+
+                }
+
             }
+
+        }
+
+        else if (listGroup.equals("NAUGHTY")) {
+
+            // Red for NAUGHTY
+            System.out.print(Colors.ANSI_RED);
+
+            // Loop through rows
+            for (int i = 0; i < list.length; i++) {
+                
+                if (list[i][2].equals("NAUGHTY")) {
+
+                    // Loop through columns
+                    for (int j = 0; j < list[i].length; j++) {
+                        System.out.print(list[i][j]);
+
+                        // Printing comma separated elements
+                        if (j < list[i].length - 1) {
+                            System.out.print(", ");
+                        }
+                        else {
+                            System.out.println();
+                        }
+
+                    }
+
+                }
+
+            }
+
+            System.out.print(Colors.ANSI_RESET);
+
+        }
+
+        else if (listGroup.equals("NICE")) {
+
+            // Green for nice
+            System.out.print(Colors.ANSI_GREEN);
+
+            // Loop through rows
+            for (int i = 0; i < list.length; i++) {
+                
+                if (list[i][2].equals("NICE")) {
+
+                    // Loop through columns
+                    for (int j = 0; j < list[i].length; j++) {
+
+                        System.out.print(list[i][j]);
+
+                        // Printing comma separated elements
+                        if (j < list[i].length - 1) {
+                            System.out.print(", ");
+                        }
+                        else {
+                            System.out.println();
+                        }
+
+                    }
+
+                }
+
+            }
+
+            System.out.print(Colors.ANSI_RESET);
 
         }
 
         return list;
 
     }
-
+    
     // Formats list with all uppercase letters
     public static String[][] formatList(String[][] list) {
 
@@ -141,7 +224,14 @@ public class App {
         // Proper length entry has been input, return new formatted data row
         if (entryLength == entry.length) {
             for (int i = 0; i < entry.length; i++) {
-                formatEntry[i] = entry[i].toUpperCase();
+                // Change gift to coal before storing if naughty
+                if (i == 2 && entry[2].toUpperCase().equals("NAUGHTY")) {
+                    entry[4] = "COAL";
+                }
+                // Otherwise, store all other data as normal
+                else {
+                    formatEntry[i] = entry[i].toUpperCase();
+                }
             }
             return formatEntry;
         }
@@ -153,9 +243,17 @@ public class App {
 
         // Incorrect length entry
         else {
-            return null;
+            String badEntry[] = {"INVALID"};
+            return badEntry;
         }
         
+    }
+
+    // Print a certain number of newline characters
+    public static void space(int numSpaces) {
+        for (int i = 1; i <= numSpaces; i++) {
+            System.out.println();
+        }
     }
     
 }
