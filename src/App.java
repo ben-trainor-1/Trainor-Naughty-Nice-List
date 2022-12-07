@@ -76,6 +76,13 @@ public class App {
 
         }
         
+        // Change naughty kids' gifts to coal
+        for (int i = 0; i < naughtyNiceList.length; i++) {
+            if (naughtyNiceList[i][2].equals("NAUGHTY")) {
+                naughtyNiceList[i][4] = "COAL";
+            }
+        }
+        
         space(1);
         printList(naughtyNiceList, "ALL");
         space(1);
@@ -225,8 +232,8 @@ public class App {
         if (entryLength == entry.length) {
             for (int i = 0; i < entry.length; i++) {
                 // Change gift to coal before storing if naughty
-                if (i == 2 && entry[2].toUpperCase().equals("NAUGHTY")) {
-                    entry[4] = "COAL";
+                if (i == 4 && formatEntry[2].equals("NAUGHTY")) {
+                    formatEntry[4] = "COAL";
                 }
                 // Otherwise, store all other data as normal
                 else {
