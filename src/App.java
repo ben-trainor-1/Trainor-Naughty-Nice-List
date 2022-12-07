@@ -29,7 +29,7 @@ public class App {
 
         space(1);
 
-        naughtyNiceList =  formatList(naughtyNiceList);
+        naughtyNiceList = formatList(naughtyNiceList);
         printList(naughtyNiceList, "ALL");
 
         space(1);
