@@ -1,18 +1,15 @@
-## Getting Started
-
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
-
-## Folder Structure
-
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+# Naughty-Nice-List
+### *A simple program built for Santa to keep track of how the kids have been this year.*
+## *Tools used*
+- Language: Java
+- Compiler: VSCode
+- Version: 1.0
+## Pseudocode
+1. Initialize and format the array
+   1. Convert all Strings to uppercase
+   2. Change gifts to coal if the child is marked naughty
+2. Display the initial data in the array
+3. Prompt for new entries and automatically format the input
+   1. Convert all Strings to uppercase
+   2. Change gifts to coal if the child is marked naughty
+4. Display the new data before exiting
